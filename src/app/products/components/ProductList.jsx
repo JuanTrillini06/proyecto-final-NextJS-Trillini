@@ -1,7 +1,9 @@
 import { ProductCard } from "./ProductCard";
 
 export async function ProductList({ category }) {
-  const res = await fetch(`http://localhost:3000/api/products/${category}`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${category}`, {
+  cache: 'no-store',
+});
   const { products } = await res.json();
 
   return (
