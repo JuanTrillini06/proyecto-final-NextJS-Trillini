@@ -1,9 +1,17 @@
 import { ProductCard } from "./ProductCard";
 
+import { headers } from 'next/headers';
+
 export async function ProductList({ category }) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${category}`, {
-  cache: 'no-store',
-});
+  const headersList = headers();
+  const host = headersList.get('host');
+  const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
+  const baseUrl = `${protocol}://${host}`;
+
+  const res = await fetch(`${baseUrl}/api/products/${category}`, {
+    cache: 'no-store',
+  });
+  
   const { products } = await res.json();
 
   return (
