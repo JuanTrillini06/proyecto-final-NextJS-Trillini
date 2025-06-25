@@ -3,8 +3,7 @@ import { ProductsTable } from "./components/ProductsTable";
 export const dynamic = "force-dynamic";
 
 export default async function AdminPage() {
-  const products = await fetch(`http://${process.env.VERCEL_URL}/api/products/all`, {
-    cache: 'no-store',}).then(
+  const products = await fetch("http://localhost:3000/api/products/all").then(
     (res) => res.json()
   );
   return (

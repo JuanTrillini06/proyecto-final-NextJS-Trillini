@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 
 export async function generateMetadata({ params, searchParams }, parent) {
-  const category = params?.category || "all";
+  const { category } = await params;
   return {
     title: `Products of ${category}`,
     description: `Products of ${category} category`,
@@ -23,7 +23,7 @@ export function generateStaticParams() {
 }
 
 export default async function CategoryPage({ params }) {
-  const category = params?.category || "all";
+  const { category } = await params;
 
   return (
     <div className="flex flex-col items-center justify-center mt-10">
