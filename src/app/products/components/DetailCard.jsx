@@ -3,6 +3,7 @@
 import { useCartContext } from "@/context/CartContext";
 import Link from "next/link";
 import { showToast } from "nextjs-toast-notify";
+import Image from "next/image";
 
 export function DetailCard({ product }) {
   const { addToCart } = useCartContext();
@@ -18,18 +19,14 @@ export function DetailCard({ product }) {
       icon: '',
       sound: true,
   });
+  
   };
 
   return (
     <div className="flex flex-col items-center justify-center mt-10 ">
       <div className="bg-indigo-400 text-gray-900 rounded-lg p-10 max-w-lg flex flex-col items-center">
-        <img
-          src={product.imageUrl}
-          alt={product.name}
-          width={300}
-          height={300}
-          className="rounded-lg mb-5"
-        />
+
+        <Image alt="cart" src={product.imageUrl} width={300} height={300} className="mt-2 rounded-lg" />
 
         <div className="flex flex-col items-center justify-center gap-5">
           <h3 className="text-2xl font-bold text-center">{product.name}</h3>

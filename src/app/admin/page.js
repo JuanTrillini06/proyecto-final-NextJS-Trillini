@@ -1,20 +1,23 @@
-"use client";
+import Link from "next/link";
+import { ProductsTable } from "./components/ProductsTable";
+export const dynamic = "force-dynamic";
 
-import { useRouter } from "next/navigation";
-
-export default function AdminPage() {
-  const router = useRouter();
-
+export default async function AdminPage() {
+  const products = await fetch("/api/products/all", { cache: "no-store" }).then(
+    (res) => res.json()
+  );
   return (
     <>
-      <div className="flex flex-col items-center justify-center">
-        <p className="mt-4 text-lg max-w-lg">Sector administrador</p>
-        <button
-          className="mt-4 px-4 py-2 bg-blue-900 hover:bg-indigo-400 text-gray-200 hover:text-gray-800 rounded"
-          onClick={() => router.back()}
+      <div className="flex flex-col gap-5 items-center justify-center">
+        <p className="mt-4 text-lg max-w-lg">Admin Section</p>
+        <Link
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          href="/admin/create"
         >
-          Volver
-        </button>
+          Create New Product
+        </Link>
+
+        <ProductsTable products={products} />
       </div>
     </>
   );

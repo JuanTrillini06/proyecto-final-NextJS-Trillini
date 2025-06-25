@@ -1,13 +1,23 @@
 import Link from "next/link";
-import Image from "next/image";
-import { productsDB } from "../../../api/products/data/products";
 import { DetailCard } from "../../components/DetailCard";
 
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+
+  return {
+    title: `Detalle del producto ${id}`,
+    description: `Detalles del producto con ID ${id}`,
+    keywords: ["producto", "detalle", id],
+  };
+}
 
 export default async function DetailPage({ params }) {
-  const { slug } = await params;
+  const { id } = await params;
 
-  const product = productsDB.find((product) => product.slug === slug);
+  const res = await fetch(`http://localhost:3000/api/product/${id}`);
+  const product = await res.json();
+
+  console.log(product);
 
   if (!product) {
     return (
@@ -32,5 +42,6 @@ export default async function DetailPage({ params }) {
       </div>
     );
   }
- return <DetailCard product={product} />;
+
+  return <DetailCard product={product} />;
 }

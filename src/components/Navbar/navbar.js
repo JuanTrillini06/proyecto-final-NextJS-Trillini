@@ -4,6 +4,10 @@ import Image from "next/image";
 import { useState } from "react";
 import { Navlink } from "./navlink";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { useCartContext } from "../../context/CartContext";
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 
 export function Navbar() {
   const links = [
@@ -14,6 +18,9 @@ export function Navbar() {
   ];
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const { cart } = useCartContext();
+  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
     <nav className="bg-white border-gray-200 dark:bg-indigo-400">
@@ -57,13 +64,15 @@ export function Navbar() {
             {links.map(({ name, href }) => (
               <Navlink name={name} href={href} key={name} />
             ))}
-            <li className="w-full">
-              <a
-                href="#"
-                className="block py-2 px-3 text-gray-900 rounded-sm  md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-400  dark:hover:text-white md:dark:hover:bg-transparent"
-              >
+            <li className="relative w-full">
+              <Link href="/cart" className="relative block w-fit">
                 <Image alt="cart" src="/cart-3-svgrepo-com.svg" width={50} height={20} />
-              </a>
+                  {totalItems > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full px-2">
+                      {totalItems}
+                    </span>
+                  )}
+                </Link>
             </li>
           </ul>
         </div>

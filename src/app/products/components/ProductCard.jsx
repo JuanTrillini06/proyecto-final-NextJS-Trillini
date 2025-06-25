@@ -8,7 +8,6 @@ export function ProductCard({ product }) {
 
       <Image alt="cart" src={product.imageUrl} width={300} height={300} className="mt-2 rounded-lg" />
 
-      <p className="small">{product.description}</p>
       <p className="text-lg font-bold mt-2">${product.price}</p>
 
       <span className="text-sm text-gray-600 mt-2">

@@ -2,6 +2,8 @@ import { ProductList } from "../components/ProductList";
 import Link from "next/link";
 import { Suspense } from "react";
 import { Spinner } from "@/components/Spinner/Spinner";
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 
 export async function generateMetadata({ params, searchParams }, parent) {
   const { category } = await params;
